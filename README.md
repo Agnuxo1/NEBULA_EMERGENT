@@ -383,7 +383,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Francisco Angulo de Lafuente**  
 NEBULA Research Initiative  
 - GitHub: [@Agnuxo1](https://github.com/Agnuxo1)
-- Email: francisco.angulo@nebula-research.org
+- Email: lareliquia.angulo@gmail.com
 
 ---
 
