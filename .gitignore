@@ -1,0 +1,97 @@
+# NEBULA EMERGENT .gitignore
+# Author: Francisco Angulo de Lafuente - NEBULA Team
+
+# Build directories
+build/
+bin/
+obj/
+
+# Compiled executables
+nebula_emergent
+nebula_arc_solver
+*.exe
+*.out
+
+# Object files
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+
+# Debug files
+*.pdb
+*.dSYM/
+*.su
+*.idb
+*.ipdb
+
+# Profiling files
+gmon.out
+*.prof
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Large result files (keep samples)
+results/nebula_state_*.txt
+!results/nebula_state_0.txt
+!results/nebula_state_200.txt
+!results/nebula_final_state.txt
+
+# Documentation build
+docs/html/
+docs/latex/
+docs/xml/
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile.cmake
+
+# Backup files
+*.bak
+*.backup
+
+# Test outputs
+test_output/
+benchmark_results/
+
+# CUDA compiled files
+*.cubin
+*.ptx
+
+# Unreal Engine files (if present)
+Binaries/
+Intermediate/
+Saved/
+.vs/
+
+# Local configuration
+config.local
+settings.local
+

@@ -1,0 +1,1 @@
+#!/bin/bash\n# NEBULA EMERGENT Quick Start Example\necho "🌌 NEBULA EMERGENT Quick Start"\necho "Building neural galaxy simulation..."\nmake nebula_emergent\necho "Running 100-frame simulation..."\ntimeout 30s ./bin/nebula_emergent\necho "✅ Quick start completed!"

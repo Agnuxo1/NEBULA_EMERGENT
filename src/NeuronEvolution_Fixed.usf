@@ -1,0 +1,61 @@
+// NeuronEvolution_Fixed.usf
+// Corrected to use luminosity for attraction
+
+struct FNeuronState
+{
+    float3 Position;
+    float3 Velocity;
+    float Mass;
+    float Luminosity;
+    float4 Spectrum;
+    float Activation;
+    float Potential;
+    float Energy;
+    float DynamicMass;  // NEW: Mass that changes with luminosity
+};
+
+[numthreads(256, 1, 1)]
+void MainCS(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+    uint NeuronID = DispatchThreadId.x;
+    if (NeuronID >= NumNeurons) return;
+    
+    FNeuronState neuron = NeuronBuffer[NeuronID];
+    
+    // ========== CORRECTED: Luminosity-Based Attraction ==========
+    
+    float3 attractionForce = float3(0, 0, 0);
+    
+    // Dynamic mass based on luminosity (E=mc²)
+    neuron.DynamicMass = neuron.Mass + neuron.Luminosity * 0.01;
+    
+    for (uint i = 0; i < NumNeurons; i++)
+    {
+        if (i == NeuronID) continue;
+        
+        FNeuronState other = NeuronBuffer[i];
+        float3 delta = other.Position - neuron.Position;
+        float distSq = dot(delta, delta) + 0.01;
+        
+        // CRITICAL FIX: Attraction based on LUMINOSITY, not just mass
+        float otherDynamicMass = other.Mass + other.Luminosity * 0.01;
+        
+        // Phototropic attraction (towards light)
+        float luminosityAttraction = neuron.Luminosity * other.Luminosity;
+        
+        // Combined force: weak gravity + strong phototropism
+        float forceMag = GRAVITATIONAL_CONSTANT * neuron.DynamicMass * otherDynamicMass / distSq
+                       + PHOTOTROPIC_CONSTANT * luminosityAttraction / distSq;
+        
+        // Brighter neurons have stronger influence
+        forceMag *= (1.0 + other.Luminosity * 0.1);
+        
+        attractionForce += normalize(delta) * forceMag;
+    }
+    
+    // Update velocity and position
+    neuron.Velocity += attractionForce / neuron.DynamicMass * DeltaTime;
+    neuron.Position += neuron.Velocity * DeltaTime;
+    
+    NeuronBuffer[NeuronID] = neuron;
+}
